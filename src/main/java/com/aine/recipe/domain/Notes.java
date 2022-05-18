@@ -1,6 +1,7 @@
 package com.aine.recipe.domain;
 
 import javax.persistence.*;
+import java.util.Random;
 
 @Entity
 public class Notes {
@@ -13,7 +14,8 @@ public class Notes {
     // true if recipe has been cooked
     private boolean cooked;
     // number between 1 & 5, elaborate later
-    private int rating;
+    @Enumerated(value = EnumType.STRING)
+    private Rating rating;
     @Lob
     private String comments;
 
@@ -41,11 +43,11 @@ public class Notes {
         this.cooked = cooked;
     }
 
-    public int getRating() {
+    public Rating getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Rating rating) {
         this.rating = rating;
     }
 
