@@ -10,3 +10,4 @@ INSERT INTO unit_of_measurement (unit_of_measurement) VALUES ('grams');
 INSERT INTO unit_of_measurement (unit_of_measurement) VALUES ('whole');
 INSERT INTO unit_of_measurement (unit_of_measurement) VALUES ('clove');
 INSERT INTO unit_of_measurement (unit_of_measurement) VALUES ('slices');
+

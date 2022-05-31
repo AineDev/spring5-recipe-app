@@ -1,6 +1,9 @@
 package com.aine.recipe.domain;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -9,7 +12,9 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Lob
     private String description;
+    @Lob
     private String instructions;
     private Integer prepTime;
     private Integer cookTime;
@@ -21,13 +26,13 @@ public class Recipe {
     @Lob
     private Byte[] image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
@@ -131,5 +136,39 @@ public class Recipe {
 
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", prepTime=" + prepTime +
+                ", cookTime=" + cookTime +
+                ", servings=" + servings +
+                ", source='" + source + '\'' +
+                ", cooked=" + cooked +
+                ", notes=" + notes +
+                ", image=" + Arrays.toString(image) +
+                ", ingredients=" + ingredients +
+                ", categories=" + categories +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Recipe recipe = (Recipe) o;
+        return id.equals(recipe.id) && Objects.equals(title, recipe.title) && Objects.equals(description, recipe.description) && Objects.equals(instructions, recipe.instructions) && Objects.equals(prepTime, recipe.prepTime) && Objects.equals(cookTime, recipe.cookTime) && Objects.equals(servings, recipe.servings) && Objects.equals(source, recipe.source) && Objects.equals(cooked, recipe.cooked) && Objects.equals(notes, recipe.notes) && Arrays.equals(image, recipe.image) && Objects.equals(ingredients, recipe.ingredients) && Objects.equals(categories, recipe.categories);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, title, description, instructions, prepTime, cookTime, servings, source, cooked, notes, ingredients, categories);
+        result = 31 * result + Arrays.hashCode(image);
+        return result;
     }
 }
