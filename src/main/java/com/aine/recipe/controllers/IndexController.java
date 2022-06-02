@@ -5,6 +5,7 @@ import com.aine.recipe.domain.UnitOfMeasurement;
 import com.aine.recipe.repositories.CategoryRepository;
 import com.aine.recipe.repositories.RecipeRepository;
 import com.aine.recipe.repositories.UnitOfMeasurementRepository;
+import com.aine.recipe.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,31 +14,20 @@ import java.util.Optional;
 
 @Controller
 public class IndexController {
+    private final RecipeService recipeService;
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasurementRepository unitOfMeasurementRepository;
-    private RecipeRepository recipeRepository;
-
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasurementRepository unitOfMeasurementRepository, RecipeRepository recipeRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasurementRepository = unitOfMeasurementRepository;
-        this.recipeRepository = recipeRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage(){
-        Optional<Category> categoryOptional = categoryRepository.findByCategoryName("French");
-        Optional<UnitOfMeasurement> unitOfMeasurement = unitOfMeasurementRepository.findByUnitOfMeasurement("tbsp");
-
-        System.out.println("Category ID is: " + categoryOptional.get().getId());
-        System.out.println("Category ID is: " + unitOfMeasurement.get().getId());
-
         return "index";
     }
 
     @RequestMapping("/recipes")
     public String getRecipes(Model model){
-        model.addAttribute("recipes", recipeRepository.findAll());
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         return "recipes";
     }
