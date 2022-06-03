@@ -20,17 +20,15 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(String ingredient, Double amount, UnitOfMeasurement unitOfMeasurement, Recipe recipe){
+    public Ingredient(String ingredient, Double amount, UnitOfMeasurement unitOfMeasurement){
         this.ingredient = ingredient;
         this.amount = amount;
         this.unitOfMeasurement = unitOfMeasurement;
-        this.recipe = recipe;
     }
 
-    public Ingredient(String ingredient, UnitOfMeasurement unitOfMeasurement, Recipe recipe){
+    public Ingredient(String ingredient, UnitOfMeasurement unitOfMeasurement){
         this.ingredient = ingredient;
         this.unitOfMeasurement = unitOfMeasurement;
-        this.recipe = recipe;
     }
     public UnitOfMeasurement getUnitOfMeasurement() {
         return unitOfMeasurement;

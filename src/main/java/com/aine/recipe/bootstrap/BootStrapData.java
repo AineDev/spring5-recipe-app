@@ -8,7 +8,9 @@ import com.aine.recipe.repositories.UnitOfMeasurementRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -62,8 +64,7 @@ public class BootStrapData implements CommandLineRunner {
 
 
 //        FRENCH ONION SOUP
-        Recipe FrenchOnionSoup = new Recipe();
-        FrenchOnionSoup.setTitle("French Onion Soup");
+        Recipe FrenchOnionSoup = new Recipe("French Onion Soup",10, 70, 5, "https://www.simplyrecipes.com/recipes/french_onion_soup/", Boolean.TRUE);
         FrenchOnionSoup.setDescription("Warm, cozy, and flavorful, this French onion soup is prepared with beef stock and caramelized onions. Top with croutons covered in melty Gruyere and Parmesan cheese.");
         FrenchOnionSoup.setInstructions("Caramelize the onions:\n" +
                 "In a 5 to 6 quart thick-bottomed pot, heat 3 tablespoons of olive oil on medium heat. Add the onions and toss to coat with the olive oil.\n" +
@@ -88,57 +89,47 @@ public class BootStrapData implements CommandLineRunner {
                 "To serve, ladle soup into a bowl and transfer one cheesy toast onto the top of each bowl of soup.\n" +
                 "\n" +
                 "Alternatively, you can use individual oven-proof bowls or one large casserole dish. Ladle the soup into the bowls or casserole dish. Cover with the toast and sprinkle with cheese. Put into the broiler for 10 minutes at 350° F, or until the cheese bubbles and is slightly browned.");
-        FrenchOnionSoup.setPrepTime(10);
-        FrenchOnionSoup.setCookTime(70);
-        FrenchOnionSoup.setServings(5);
-        FrenchOnionSoup.setSource("https://www.simplyrecipes.com/recipes/french_onion_soup/");
-        FrenchOnionSoup.setCooked(Boolean.TRUE);
         FrenchOnionSoup.setNotes(new Notes());
         FrenchOnionSoup.getCategories().add(frenchCategory);
 
-        FrenchOnionSoup.getIngredients().add(new Ingredient("Red or Yellow Onions", 6.0, wholeUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient("Extra Virgin Olive Oil", 4.0, tbspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Butter", 2.0, tbspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Sugar", 1.0, tspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Salt", pinchUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Garlic, minced", 2.0, cloveUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Chicken or Vegetarian Stock (traditionally made with beef stock)", 8.0, cupUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Dry Vermouth or Dry White Wine", 0.5, cupUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Bay Leaves", 2.0, wholeUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Fresh Thyme Leaves (or 1/2 tsp dried thyme)", 1.0, tbspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Freshly Ground Black Pepper", 0.5, tspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Brandy (optional)", 2.0, tbspUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "French Bread or Baguette (1 inch thick)", 8.0, slicesUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Grated Gruyere", 1.5, cupUOM, FrenchOnionSoup));
-        FrenchOnionSoup.getIngredients().add(new Ingredient( "Parmesan",  pinchUOM, FrenchOnionSoup));
+        FrenchOnionSoup.setIngredient(new Ingredient("Red or Yellow Onions", 6.0, wholeUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Extra Virgin Olive Oil", 4.0, tbspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Butter", 2.0, tbspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Sugar", 1.0, tspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Salt", pinchUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Garlic, minced", 2.0, cloveUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Chicken or Vegetarian Stock (traditionally made with beef stock)", 8.0, cupUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Dry Vermouth or Dry White Wine", 0.5, cupUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Bay Leaves", 2.0, wholeUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Fresh Thyme Leaves (or 1/2 tsp dried thyme)", 1.0, tbspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Freshly Ground Black Pepper", 0.5, tspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Brandy (optional)", 2.0, tbspUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("French Bread or Baguette (1 inch thick)", 8.0, slicesUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Grated Gruyere", 1.5, cupUOM));
+        FrenchOnionSoup.setIngredient(new Ingredient("Parmesan",  pinchUOM));
 
         recipeRepository.save(FrenchOnionSoup);
 
 //      Spaghetti Carbonara
-        Recipe spaghettiCarbonara = new Recipe();
-        spaghettiCarbonara.setTitle("Spaghetti Carbonara");
+        Recipe spaghettiCarbonara = new Recipe("Spaghetti Carbonara", 5, 25, 4, "https://cooking.nytimes.com/recipes/12965-spaghetti-carbonara", Boolean.FALSE);
         spaghettiCarbonara.setDescription("This dish is a deli egg-bacon-and-cheese-on-a-roll that has been pasta-fied, fancified, fetishized and turned into an Italian tradition Remember: the main goal is creaminess.");
         spaghettiCarbonara.setInstructions("Place a large pot of lightly salted water (no more than 1 tablespoon salt) over high heat, and bring to a boil. Fill a large bowl with hot water for serving, and set aside.\n" +
                 "In a mixing bowl, whisk together the eggs, yolks and pecorino and Parmesan. Season with a pinch of salt and generous black pepper.\n" +
                 "Set the water to boil. Meanwhile, heat oil in a large skillet over medium heat, add the pork, and sauté until the fat just renders, on the edge of crispness but not hard. Remove from heat and set aside.\n" +
                 "Add pasta to the water and boil until a bit firmer than al dente. Just before pasta is ready, reheat guanciale in skillet, if needed. Reserve 1 cup of pasta water, then drain pasta and add to the skillet over low heat. Stir for a minute or so.\n" +
                 "Empty serving bowl of hot water. Dry it and add hot pasta mixture. Stir in cheese mixture, adding some reserved pasta water if needed for creaminess. Serve immediately, dressing it with a bit of additional grated pecorino and pepper.");
-        spaghettiCarbonara.setPrepTime(5);
-        spaghettiCarbonara.setCookTime(25);
-        spaghettiCarbonara.setServings(4);
-        spaghettiCarbonara.setSource("https://cooking.nytimes.com/recipes/12965-spaghetti-carbonara");
-        spaghettiCarbonara.setCooked(Boolean.FALSE);
         spaghettiCarbonara.setNotes(new Notes());
         spaghettiCarbonara.getCategories().add(italianCategory);
 
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Salt", pinchUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Eggs", 2.0, wholeUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Grated Parmesan", 30.0, gramsUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Grated Pecorino Romano, additional for serving", 30.0, gramsUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Freshly Cracked Black Pepper", pinchUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Extra Virgin Olive Oil", 1.0, tbspUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("Pancetta or Bacon, sliced into pieces about 1/4 in by 1/3 inch square", 100.0, gramsUOM, spaghettiCarbonara));
-        spaghettiCarbonara.getIngredients().add(new Ingredient("spaghetti", 340.0, gramsUOM, spaghettiCarbonara));
+        spaghettiCarbonara.setIngredient(new Ingredient("Salt", pinchUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Eggs", 2.0, wholeUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Grated Parmesan", 30.0, gramsUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Grated Pecorino Romano, additional for serving", 30.0, gramsUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Freshly Cracked Black Pepper", pinchUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Extra Virgin Olive Oil", 1.0, tbspUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("Pancetta or Bacon, sliced into pieces about 1/4 in by 1/3 inch square", 100.0, gramsUOM));
+        spaghettiCarbonara.setIngredient(new Ingredient("spaghetti", 340.0, gramsUOM));
+
 
         recipeRepository.save(spaghettiCarbonara);
         System.out.println("Added Carbonara, Recipe Count: " + recipeRepository.count());
