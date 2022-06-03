@@ -34,12 +34,29 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    public Recipe() {
+    }
+
+    public Recipe(String title, Integer prepTime, Integer cookTime, Integer servings, String source, Boolean cooked) {
+        this.title = title;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.source = source;
+        this.cooked = cooked;
+    }
+
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
     }
 
     public Long getId() {
@@ -49,7 +66,6 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-
     public String getTitle() {
         return title;
     }
@@ -119,6 +135,7 @@ public class Recipe {
     }
 
     public void setNotes(Notes notes) {
+        notes.setRecipe(this);
         this.notes = notes;
     }
 
